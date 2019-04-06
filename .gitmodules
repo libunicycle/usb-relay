@@ -1,0 +1,3 @@
+[submodule "librfn"]
+	path = librfn
+	url = https://github.com/anatol/librfn
