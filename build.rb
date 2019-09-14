@@ -16,10 +16,10 @@ when :stm32f4
 end
 
 for f in FILES
-  system("arm-none-eabi-gcc -Os -g -std=c11 -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections -DNDEBUG -DCONFIG_CONSOLE_FROM_ISR=1 -I librfn/include -MD -Wall -Wundef -DF_CPU=120000000 -DCONFIG_USB_MAX_POWER=500 #{CFLAGS} -o #{f}.o -c #{f}.c")
+  system("arm-none-eabi-gcc -Os -flto -g -std=c11 -Wextra -Wshadow -Wimplicit-function-declaration -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes -fno-common -ffunction-sections -fdata-sections -DNDEBUG -DCONFIG_CONSOLE_FROM_ISR=1 -I librfn/include -MD -Wall -Wundef -DF_CPU=120000000 -DCONFIG_USB_MAX_POWER=500 #{CFLAGS} -o #{f}.o -c #{f}.c")
 end
 
-system("arm-none-eabi-gcc --static -nostartfiles -T #{LDSCRIPT} -Wl,-Map=relay.map -Wl,--gc-sections #{CFLAGS} #{FILES.map { |f| f + ".o" }.join(" ")} #{LIBS} -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group -o relay.elf")
+system("arm-none-eabi-gcc -flto --static -nostartfiles -T #{LDSCRIPT} -Wl,-Map=relay.map -Wl,--gc-sections #{CFLAGS} #{FILES.map { |f| f + ".o" }.join(" ")} #{LIBS} -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group -o relay.elf")
 
 system("arm-none-eabi-objcopy -O binary relay.elf relay.bin")
 system("arm-none-eabi-objdump -D -marm --disassembler-options=force-thumb --target binary relay.bin > relay.asm")
