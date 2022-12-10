@@ -7,11 +7,11 @@ ARCH = :stm32f1
 case ARCH
 when :stm32f1
   CFLAGS = "-mthumb -mcpu=cortex-m3 -msoft-float -mfix-cortex-m3-ldrd -DSTM32F1"
-  LDSCRIPT = "stm32f103x8.ld"
+  LDSCRIPT = "relay-f1.ld"
   LIBS = "-lopencm3_stm32f1"
 when :stm32f4
   CFLAGS = "-mthumb -mcpu=cortex-m4 mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32F4"
-  LDSCRIPT = "stm32f405x6.ld"
+  LDSCRIPT = "relay-f4.ld"
   LIBS = "-lopencm3_stm32f4"
 end
 
