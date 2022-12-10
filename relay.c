@@ -63,7 +63,7 @@ int main(void) {
     rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_120MHZ]);
 #endif
 #ifdef STM32F1
-    rcc_clock_setup_in_hsi_out_48mhz();
+    rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_HSI_48MHZ]);
 #endif
 
     time_init();
